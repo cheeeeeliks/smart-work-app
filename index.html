@@ -72,29 +72,17 @@
         tg.expand(); 
 
         function sendFocusCommand() {
-            let btn = document.getElementById("btnFocus");
             let minutes = document.getElementById("focusTime").value;
-            
-            // Визуальный отклик и легкая вибрация телефона
-            btn.style.backgroundColor = "#2ed573";
-            btn.innerText = "Отправка...";
-            tg.HapticFeedback.impactOccurred('medium'); 
-
-            // Отправляем данные МГНОВЕННО (иначе Телеграм заблокирует)
+            // Отправляем команду
             tg.sendData("/focus " + minutes);
+            // Принудительно закрываем интерфейс
+            tg.close();
         }
 
         function sendMonitorCommand() {
-            let btn = document.getElementById("btnMonitor");
             let process = document.getElementById("processName").value;
-            
-            // Визуальный отклик и легкая вибрация телефона
-            btn.style.backgroundColor = "#ffa502"; 
-            btn.innerText = "Отправка...";
-            tg.HapticFeedback.impactOccurred('medium');
-
-            // Отправляем мгновенно
             tg.sendData("/monitor " + process);
+            tg.close();
         }
     </script>
 
