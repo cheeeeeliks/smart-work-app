@@ -75,27 +75,26 @@
             let btn = document.getElementById("btnFocus");
             let minutes = document.getElementById("focusTime").value;
             
-            // Визуальный отклик (меняем кнопку)
-            btn.style.backgroundColor = "#2ed573"; // Зеленый цвет
-            btn.innerText = "✅ Отправлено!";
+            // Визуальный отклик и легкая вибрация телефона
+            btn.style.backgroundColor = "#2ed573";
+            btn.innerText = "Отправка...";
+            tg.HapticFeedback.impactOccurred('medium'); 
 
-            // Ждем полсекунды (500 мс), чтобы пользователь увидел зеленую кнопку, и отправляем
-            setTimeout(() => {
-                tg.sendData("/focus " + minutes);
-            }, 500);
+            // Отправляем данные МГНОВЕННО (иначе Телеграм заблокирует)
+            tg.sendData("/focus " + minutes);
         }
 
         function sendMonitorCommand() {
             let btn = document.getElementById("btnMonitor");
             let process = document.getElementById("processName").value;
             
-            // Визуальный отклик
-            btn.style.backgroundColor = "#ffa502"; // Оранжевый цвет
-            btn.innerText = "✅ Отправлено!";
+            // Визуальный отклик и легкая вибрация телефона
+            btn.style.backgroundColor = "#ffa502"; 
+            btn.innerText = "Отправка...";
+            tg.HapticFeedback.impactOccurred('medium');
 
-            setTimeout(() => {
-                tg.sendData("/monitor " + process);
-            }, 500);
+            // Отправляем мгновенно
+            tg.sendData("/monitor " + process);
         }
     </script>
 
