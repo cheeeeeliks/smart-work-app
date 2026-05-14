@@ -40,6 +40,7 @@
             font-weight: bold;
             width: 100%;
             cursor: pointer;
+            transition: 0.3s; /* Плавная анимация изменения цвета */
         }
         .btn-green {
             background-color: #2ed573;
@@ -54,34 +55,47 @@
         <h3>🍅 Фокус-режим</h3>
         <p>Время (в минутах):</p>
         <input type="number" id="focusTime" value="25">
-        <button onclick="sendFocusCommand()">СТАРТ ФОКУС</button>
+        <!-- Добавили id="btnFocus" для изменения кнопки -->
+        <button id="btnFocus" onclick="sendFocusCommand()">СТАРТ ФОКУС</button>
     </div>
 
     <div class="card">
         <h3>🔍 Монитор задач</h3>
         <p>Имя процесса:</p>
         <input type="text" id="processName" value="notepad.exe">
-        <button class="btn-green" onclick="sendMonitorCommand()">НАЧАТЬ СЛЕЖКУ</button>
+        <!-- Добавили id="btnMonitor" для изменения кнопки -->
+        <button id="btnMonitor" class="btn-green" onclick="sendMonitorCommand()">НАЧАТЬ СЛЕЖКУ</button>
     </div>
 
     <script>
-        // Инициализация Web App
         let tg = window.Telegram.WebApp;
-        tg.expand(); // Открываем на весь экран
+        tg.expand(); 
 
-        // Функция для кнопки "Фокус"
         function sendFocusCommand() {
+            let btn = document.getElementById("btnFocus");
             let minutes = document.getElementById("focusTime").value;
-            // Отправляем скрытую текстовую команду боту!
-            tg.sendData("/focus " + minutes);
-            tg.close(); // Закрываем окошко
+            
+            // Визуальный отклик (меняем кнопку)
+            btn.style.backgroundColor = "#2ed573"; // Зеленый цвет
+            btn.innerText = "✅ Отправлено!";
+
+            // Ждем полсекунды (500 мс), чтобы пользователь увидел зеленую кнопку, и отправляем
+            setTimeout(() => {
+                tg.sendData("/focus " + minutes);
+            }, 500);
         }
 
-        // Функция для кнопки "Монитор"
         function sendMonitorCommand() {
+            let btn = document.getElementById("btnMonitor");
             let process = document.getElementById("processName").value;
-            tg.sendData("/monitor " + process);
-            tg.close();
+            
+            // Визуальный отклик
+            btn.style.backgroundColor = "#ffa502"; // Оранжевый цвет
+            btn.innerText = "✅ Отправлено!";
+
+            setTimeout(() => {
+                tg.sendData("/monitor " + process);
+            }, 500);
         }
     </script>
 
